@@ -1,0 +1,52 @@
+.txt-input {
+    margin: 12% 5% auto 5%;
+}
+
+.emt-btn {
+    margin-top: 2%;
+    float: right;
+    background-color: #5DB274;
+}
+
+.emt-btn:hover,.emt-btn:focus,.emt-btn:active {
+    background-color: #298742;
+}
+
+@media screen and (max-width: 700px) {
+    .txt-input {
+        margin-top: 30%;
+    }
+}
+
+.dum {
+    margin-top: 13%;
+    text-align: center;
+    color: #0f5321;
+    font-weight: 700;
+}
+
+@media screen and (max-width: 1000px) {
+    .dum {
+        margin-top: 20%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .dum {
+        margin-top: 30%;
+    }
+}
+
+
+.convo-btn {
+    display: none;
+}
+
+/*#form { background: #c8f57c; padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; }
+      #messages > li:nth-child(odd) { background: #efefef; }*/
