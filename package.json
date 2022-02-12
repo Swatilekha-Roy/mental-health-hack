@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "description": "A community app for helping each other with bettering their mental healths with a gamified rewarding system for moral boost.",
     "main": "app.js",
-    "engines":{
-        "node":"12.11.1"
+    "engines": {
+        "node": "12.11.1"
     },
     "scripts": {
         "start": "node app.js",

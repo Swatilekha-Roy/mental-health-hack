@@ -5,6 +5,15 @@
 
 body{
 	font-family: 'Rubik', sans-serif;
+    /*height: 100vh;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat !important;
+    background: #A1FFCE;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #b9ffdb, #FAFFD1, #d6fae7, #f6fdc3, #ddffed, #f3fabb);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #b9ffdb, #FAFFD1, #d6fae7, #f6fdc3, #ddffed, #f3fabb); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 h1,h2,h3,h4,h5 {
@@ -44,22 +53,27 @@ tr:nth-child(even) {
 }
 
 .nav-item {
-    background-color: #5DB274;
     border-radius: 1.8rem;
-    margin-left: 1.5rem;
-}
-
-.nav-item-active {
-    background-color: #298742;
-}
-
-.nav-item:hover,.nav-item:active,.nav-item:focus {
-    background-color: #298742;
+    color: #317e56;
 }
 
 .nav-link {
-    color: #ffffff !important;
+    color: #317e56 !important;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 7px 25px !important;
     margin: auto 1rem;
+    margin-left: 1.5rem;
+}
+
+.nav-link:hover,.nav-link:active,.nav-link:focus {
+    border: 3px solid #ffffff;
+    border-radius: 10px;
+}
+
+.nav-link-active {
+    border: 3px solid #ffffff;
+    border-radius: 10px;
 }
 
 .navbar-toggler:focus,
@@ -67,6 +81,14 @@ tr:nth-child(even) {
 .navbar-toggler-icon:focus {
     outline: none;
     box-shadow: none;
+}
+
+.dropdown-item {
+    color: #317e56 !important;
+}
+
+.dropdown-item:hover,.dropdown-item:focus,.dropdown-item:active {
+    background-color: #FAFFD1;
 }
 
 .fa-user-circle:hover,.fa-user-circle:active,.fa-user-circle:focus {

@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css">
     
     <!-- Title of Page -->
-    <title>Zen Bubble</title>
+    <title>Mindscape</title>
   </head>
 
   
@@ -33,7 +33,7 @@
     <%- include('toast') %>
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-md navbar-light fixed-top" style="background-color: #C2F1B5 !important;">
+    <nav class="navbar navbar-expand-md navbar-light" style="background-color: #c2f1b500 !important;">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
           <img src="img/logo-nobg.png" width="170" background= "white" text-indent= "-99999px" style="margin-left: 3%;">
@@ -41,24 +41,37 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item nav-item-active">
-              <a class="nav-link" href="#">Home</a>
+              <a class="nav-link nav-link-active" href="#">Home</a>
             </li>
-            <li class="nav-item">
-              <% if(currentUser){ %>
-                <a class="nav-link" aria-current="page" href="/community">Community Help</a>
-              <% } %>
+
+            <li class="nav-item dropdown dropdown-help">
+              <a class="nav-link dropdown-toggle" style="border: none;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Seek Help
+              </a>
+              <div class="dropdown-menu dropdown-menu-help" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/community">Community Help</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Professional Help</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Resources</a>
+              </div>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/journal">Journal</a>
+
+            <li class="nav-item dropdown dropdown-sc">
+              <a class="nav-link dropdown-toggle" style="border: none;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Self Care
+              </a>
+              <div class="dropdown-menu dropdown-menu-sc" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/journal">Journal</a>
+                <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" aria-current="page" href="/meditate">Meditate</a>
+              </div>
             </li>
-            <li class="nav-item">
-              <% if(currentUser){ %>
-              <a class="nav-link" aria-current="page" href="/meditate">Meditate</a>
-              <% } %>
-            </li>
+
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="/leaderboard">Leaderboard</a>
             </li>
@@ -67,13 +80,13 @@
                 <li class="nav-item">
                 <a id="modal_btn" class="nav-link btn-get-quote text-white" href="#login">Login</a>
                 </li>
-        <% } else { %>
-          <li class="nav-item">
-          <a class="nav-link " href="/logout">Logout</a>
-          </li>
-        <% } %>      
+              <% } else { %>
+                <li class="nav-item">
+                <a class="nav-link " href="/logout">Logout</a>
+                </li>
+              <% } %>      
            
-            <li class="nav-item" style="background-color: #C2F1B5 !important; margin-top: 0 !important; margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important;">
+            <li class="nav-item" style="margin-top: 0 !important; margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important;">
               <% if(currentUser){ %>
                 <a class="nav-link" aria-current="page" href="/profile" style="margin-top: 0 !important; margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important;"><i class="fas fa-user-circle" style="font-size: 36px; margin-top: 0 !important; margin-bottom: 0 !important; padding-top: 0 !important; padding-bottom: 0 !important; color: #5DB274;"></i></a>
                <% } %>
@@ -191,7 +204,7 @@
     <a href="javascript:" id="return-to-top"><i class="fa fa-angle-up" aria-hidden="true" style="font-size: 30px;"></i></a>
 
     <!-- JQuery JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
