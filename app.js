@@ -39,11 +39,18 @@ app.use(
   })
 );
 
+// Mongo Username and Password
+var mongo_username = process.env.MONGO_USERNAME;
+var mongo_password = process.env.MONGO_PASSWORD;
+
 // Database connect
-mongoose.connect("mongodb+srv://chehak:123@cluster0.ohkb1.mongodb.net/UserDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(
+  `mongodb+srv://${mongo_username}:${mongo_password}@cluster0.iu6tg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 app.use(methodOverride("_method"));
 app.use(passport.initialize()); //use to use passport in our code
@@ -120,7 +127,6 @@ app.get("/medroom", (req, res) => {
   res.render("medroom");
 });
 
-
 const {
   userJoin,
   getCurrentUser,
@@ -149,10 +155,7 @@ io.on("connection", (socket) => {
     const user = userJoin(socket.id, username, room);
     socket.join(user.room);
     // Welcome current user
-    socket.emit(
-      "message",
-      formatMessage(botName, "Welcome!")
-    );
+    socket.emit("message", formatMessage(botName, "Welcome!"));
 
     // Broadcast to all connections except the current connection joining
     socket.broadcast
@@ -257,21 +260,23 @@ app.post("/community", function (req, res) {
       var query=MatchUser.find({ score: { $lt: 0 } });
    }*/
   if (result < 0) {
-    Match.findOneAndDelete({feeling: {$gte:0} }, function (err, user) {
-      if (err){
-          console.log(err)
+    Match.findOneAndDelete({ feeling: { $gte: 0 } }, function (err, user) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (user != null) {
+          Match.findOneAndDelete(
+            { username: req.user.username },
+            function (err, userf) {
+              if (err) console.log(err);
+              else console.log("Deleted Matching user");
+            }
+          );
+          counter++;
+          console.log("Deleted User : ", user);
+        }
       }
-      else{
-if(user!=null){
-        Match.findOneAndDelete({username:req.user.username},function(err,userf){
-          if(err) console.log(err)
-          else
-          console.log("Deleted Matching user");
-        })
-        counter++;
-          console.log("Deleted User : ", user);}
-      }
-  });
+    });
     /*Match.find({ feeling: 1 }, function (err, queries) {
       counter++;
       console.log(queries);
@@ -285,23 +290,25 @@ if(user!=null){
       console.log(queries);
       res.render("community", { query: queries, result: result });
     });*/
-    Match.findOneAndDelete({feeling: { $lt: 0} }, function (err, user) {
-      if (err){
-          console.log(err)
+    Match.findOneAndDelete({ feeling: { $lt: 0 } }, function (err, user) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (user != null) {
+          Match.findOneAndDelete(
+            { username: req.user.username },
+            function (err, userf) {
+              if (err) console.log(err);
+              else console.log("Deleted Matching user");
+            }
+          );
+          counter++;
+          console.log("Deleted User : ", user);
+        }
       }
-      else{
-        if(user!=null){
-        Match.findOneAndDelete({username:req.user.username},function(err,userf){
-          if(err) console.log(err)
-          else
-          console.log("Deleted Matching user");
-        })
-        counter++;
-          console.log("Deleted User : ", user);}
-      }
-  });
+    });
   }
-  res.render("community",{query: [],result:result});
+  res.render("community", { query: [], result: result });
 });
 /*query.find({},function(err,queries){
      console.log(queries)
@@ -375,7 +382,7 @@ app.post("/room", (req, res) => {
   if (rooms[req.body.room] != null) {
     return res.redirect("/");
   }
-  rooms[req.body.room] = { users:users};
+  rooms[req.body.room] = { users: users };
   res.redirect(req.body.room);
   // Send message that new room was created
   io.emit("room-created", req.body.room);
@@ -395,12 +402,10 @@ io.on("connection", (socket) => {
     socket.to(room).broadcast.emit("user-connected", name);
   });
   socket.on("send-chat-message", (room, message) => {
-    socket
-      .to(room)
-      .broadcast.emit("chat-message", {
-        message: message,
-        name: rooms[room].users[socket.id],
-      });
+    socket.to(room).broadcast.emit("chat-message", {
+      message: message,
+      name: rooms[room].users[socket.id],
+    });
   });
   socket.on("disconnect", () => {
     getUserRooms(socket).forEach((room) => {
