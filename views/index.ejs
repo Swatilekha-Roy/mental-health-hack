@@ -7,9 +7,9 @@
 
     <!-- Bootstrap CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
 
@@ -41,314 +41,302 @@
 
   <body>
     <%- include('modal_form') %> <%- include('toast') %>
+  </body>
+</html>
 
-    <!-- Navbar -->
-    <nav
-      class="navbar navbar-expand-md navbar-light"
-      style="background-color: #c2f1b500 !important"
+
+<!-- Navbar -->
+<nav
+  class="navbar navbar-expand-md navbar-light"
+  style="background-color: #c2f1b500 !important"
+>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img
+        src="img/logo.png"
+        width="170"
+        background="white"
+        text-indent="-99999px"
+        style="margin-left: 3%"
+      />
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
     >
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img
-            src="img/logo.png"
-            width="170"
-            background="white"
-            text-indent="-99999px"
-            style="margin-left: 3%"
-          />
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item nav-item-active">
+          <a class="nav-link nav-link-active" href="#">Home</a>
+        </li>
+
+        <div class="dropdown">
+          <a
+            class="btn nav-link-drop dropdown-toggle"
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Seek Help
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li>
+              <a class="dropdown-item" href="/community">Community Help</a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li><a class="dropdown-item" href="#">Professional Help</a></li>
+            <div class="dropdown-divider"></div>
+            <li>
+              <a class="dropdown-item" href="#">Resources</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="dropdown">
+          <a
+            class="btn nav-link-drop dropdown-toggle"
+            href="#"
+            role="button"
+            id="dropdownMenuLink"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Self Care
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li>
+              <a class="dropdown-item" href="/journal">Journal</a>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li><a class="dropdown-item" href="/meditate">Meditate</a></li>
+          </ul>
+        </div>
+
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="/leaderboard"
+            >Leaderboard</a
+          >
+        </li>
+
+        <% if(!currentUser){ %>
+        <li class="nav-item">
+          <a
+            id="modal_btn"
+            class="nav-link btn-get-quote text-white"
+            href="#login"
+            >Login</a
+          >
+        </li>
+        <% } else { %>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <% } %>
+
+        <li
+          class="nav-item"
+          style="
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+          "
         >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item nav-item-active">
-              <a class="nav-link nav-link-active" href="#">Home</a>
-            </li>
-
-            <li class="nav-item dropdown dropdown-help">
-              <a
-                class="nav-link dropdown-toggle"
-                style="border: none"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Seek Help
-              </a>
-              <div
-                class="dropdown-menu dropdown-menu-help"
-                aria-labelledby="navbarDropdown"
-              >
-                <a class="dropdown-item" href="/community">Community Help</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Professional Help</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Resources</a>
-              </div>
-            </li>
-
-            <li class="nav-item dropdown dropdown-sc">
-              <a
-                class="nav-link dropdown-toggle"
-                style="border: none"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Self Care
-              </a>
-              <div
-                class="dropdown-menu dropdown-menu-sc"
-                aria-labelledby="navbarDropdown"
-              >
-                <a class="dropdown-item" href="/journal">Journal</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" aria-current="page" href="/meditate"
-                  >Meditate</a
-                >
-              </div>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/leaderboard"
-                >Leaderboard</a
-              >
-            </li>
-
-            <% if(!currentUser){ %>
-            <li class="nav-item">
-              <a
-                id="modal_btn"
-                class="nav-link btn-get-quote text-white"
-                href="#login"
-                >Login</a
-              >
-            </li>
-            <% } else { %>
-            <li class="nav-item">
-              <a class="nav-link" href="/logout">Logout</a>
-            </li>
-            <% } %>
-
-            <li
-              class="nav-item"
+          <% if(currentUser){ %>
+          <a
+            class="nav-link"
+            aria-current="page"
+            href="/profile"
+            style="
+              margin-top: 0 !important;
+              margin-bottom: 0 !important;
+              padding-top: 0 !important;
+              padding-bottom: 0 !important;
+            "
+            ><i
+              class="fas fa-user-circle"
               style="
+                font-size: 36px;
                 margin-top: 0 !important;
                 margin-bottom: 0 !important;
                 padding-top: 0 !important;
                 padding-bottom: 0 !important;
+                color: #ed5d61;
               "
-            >
-              <% if(currentUser){ %>
-              <a
-                class="nav-link"
-                aria-current="page"
-                href="/profile"
-                style="
-                  margin-top: 0 !important;
-                  margin-bottom: 0 !important;
-                  padding-top: 0 !important;
-                  padding-bottom: 0 !important;
-                "
-                ><i
-                  class="fas fa-user-circle"
-                  style="
-                    font-size: 36px;
-                    margin-top: 0 !important;
-                    margin-bottom: 0 !important;
-                    padding-top: 0 !important;
-                    padding-bottom: 0 !important;
-                    color: #5db274;
-                  "
-                ></i
-              ></a>
-              <% } %>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Top Content -->
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 offset-md-2 top-img floating">
-          <img
-            class="logo-img wow fadeIn float-left"
-            src="img/homepagegirl.png"
-          />
-        </div>
-
-        <div class="top-text wow fadeInRight">
-          <h1 class="wow fadeIn top-head">Welcome to Mindscape!</h1>
-          <br />
-          <p style="text-align: justify">
-            Mindscape is a safe space for you to destress and share your
-            feelings with kind strangers over the internet so as to protect you
-            and make you feel heard in this tough world. The world is kind, and
-            you are kinder! Here, you will be able to steer emotional
-            conversations according to your mental needs without any judgement.
-            We love your chaos as much as we admire your zen and believe in you
-            to make the right call. If not, we will get you through to someone
-            who wants to help. So whether you are here to seek help or to help a
-            stranger, we are grateful to you for prioritizing your mental
-            health.
-            <br />
-            It's our responsibility to maintain positivity to our utmost, while
-            you are here with us. Therefore, we also kindly request you to not
-            make the person opposite to you uncomfortable by profanities,
-            harassment and the like. May the peace be with you!
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mascot -->
-    <!--<img src="img/zena.png" alt="" style="float:left; width: 15%; margin-left: 2%; margin-top: 2%;"/>
-    <button class="btn btn-primary" style = "display: inline-block" onclick="showContent();">What does Zena say?</button>
-    <span class="mas-content" style="display: none;">Welcome to the Zen Bubble homepage!</span>-->
-
-    <!-- Blogs -->
-    <div class="container">
-      <div class="row">
-        <div class="col-12" style="margin: 5% auto 1% 2%">
-          <h3>Our Blogs</h3>
-          <p>
-            See what our users have to say about mental health. If you are
-            inspired, you can share your own experience or insights on mental
-            health with us too! We'll publish them here.
-          </p>
-        </div>
-        <div class="col-xs-12 text-center" style="margin-left: 2%">
-          <button
-            class="btn btn-primary col-xs-4 col-md-2"
-            href="mailto:swatilekha.roy4@gmail.com?subject=Blog%20Post%20Submission!&body=Hi,%20Here%20is%20my%20own%20experience%20with%20mental%20health..."
-            style="align-items: center"
-          >
-            Submit Here...
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="main" id="com-story" style="margin-top: 2%">
-      <ul class="cards">
-        <li class="cards_item wow fadeInUp">
-          <div class="card">
-            <div class="card_image">
-              <img
-                class="blog-cd-img"
-                src="img/blogs/blog1-cd.png"
-                alt="Say no"
-              />
-            </div>
-            <div class="card_content">
-              <h2 class="card_title">
-                Learn to say 'NO' when you don't want to say 'YES'
-              </h2>
-              <p class="card_text">
-                One starred email at a time. I remind myself, absently wrapping
-                a forefinger around the coolness of the moon crystal bracelet. A
-                heap of questions weigh down on...
-              </p>
-              <a href="/blog1"
-                ><button class="btn card_btn">Read Blog</button></a
-              >
-            </div>
-          </div>
-        </li>
-        <li class="cards_item wow fadeInUp">
-          <div class="card">
-            <div class="card_image">
-              <img
-                class="blog-cd-img"
-                src="img/blogs/blog2-cd.png"
-                alt="Call out culture"
-              />
-            </div>
-            <div class="card_content">
-              <h2 class="card_title">
-                Social Media's Aggressive Call Out Culture and its impact on
-                Mental Health.
-              </h2>
-              <p class="card_text">
-                The possibly hottest and coolest thing now is social media. It's
-                fun, It's entertaining, it's informative and it's the best
-                timepass...
-              </p>
-              <a href="/blog2"
-                ><button class="btn card_btn" style="margin-top: 1%">
-                  Read Blog
-                </button></a
-              >
-            </div>
-          </div>
-        </li>
-        <li class="cards_item wow fadeInUp">
-          <div class="card">
-            <div class="card_image">
-              <img
-                class="blog-cd-img"
-                src="img/blogs/blog3-cd.png"
-                alt="suicide note"
-              />
-            </div>
-            <div class="card_content">
-              <h2 class="card_title">This is not a suicide note</h2>
-              <p class="card_text">
-                So, here I am bed-ridden, clutching my stomach in pain as I am
-                suffering from a bout of food poisoning. I've been to the
-                washroom umpteen times since late last night and now I realize
-                being so greedy and...
-              </p>
-              <a href="/blog3"
-                ><button class="btn card_btn" style="margin-top: 3.9%">
-                  Read Blog
-                </button></a
-              >
-            </div>
-          </div>
+            ></i
+          ></a>
+          <% } %>
         </li>
       </ul>
     </div>
+  </div>
+</nav>
 
-    <!-- Map request -->
-    <div class="container" style="margin-left: 2%; margin-top: 6%">
-      <div class="row">
-        <h2 style="margin-left: 6%">Near Me</h2>
-        <p style="margin-left: 6%">
-          Find the nearest mental health clinics or therapy centers according to
-          your location for accessible professional help. Simply allow us
-          permission to detect your present device location by clicking the
-          button below.
-        </p>
-        <div onload="GetMap()" class="col-xs-12 text-center">
-          <button class="btn btn-primary col-xs-4 col-md-2" id="request-geo">
-            Request Geolocation
-          </button>
+<!-- Top Content -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 offset-md-2 top-img floating">
+      <img class="logo-img wow fadeIn float-left" src="img/homepagegirl.png" />
+    </div>
+
+    <div class="top-text wow fadeInRight">
+      <h1 class="wow fadeIn top-head">Welcome to Mindscape!</h1>
+      <br />
+      <p style="text-align: justify">
+        Mindscape is a safe space for you to destress and share your feelings
+        with kind strangers over the internet so as to protect you and make you
+        feel heard in this tough world. The world is kind, and you are kinder!
+        Here, you will be able to steer emotional conversations according to
+        your mental needs without any judgement. We love your chaos as much as
+        we admire your zen and believe in you to make the right call. If not, we
+        will get you through to someone who wants to help. So whether you are
+        here to seek help or to help a stranger, we are grateful to you for
+        prioritizing your mental health.
+        <br />
+        It's our responsibility to maintain positivity to our utmost, while you
+        are here with us. Therefore, we also kindly request you to not make the
+        person opposite to you uncomfortable by profanities, harassment and the
+        like. May the peace be with you!
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Mascot -->
+<!--<img src="img/zena.png" alt="" style="float:left; width: 15%; margin-left: 2%; margin-top: 2%;"/>
+    <button class="btn btn-primary" style = "display: inline-block" onclick="showContent();">What does Zena say?</button>
+    <span class="mas-content" style="display: none;">Welcome to the Zen Bubble homepage!</span>-->
+
+<!-- Blogs -->
+<div class="container">
+  <div class="row">
+    <div class="col-12" style="margin: 5% auto 1% 2%">
+      <h3>Our Blogs</h3>
+      <p>
+        See what our users have to say about mental health. If you are inspired,
+        you can share your own experience or insights on mental health with us
+        too! We'll publish them here.
+      </p>
+    </div>
+    <div class="col-xs-12 text-center" style="margin-left: 2%">
+      <button
+        class="btn btn-primary col-xs-4 col-md-2"
+        href="mailto:swatilekha.roy4@gmail.com?subject=Blog%20Post%20Submission!&body=Hi,%20Here%20is%20my%20own%20experience%20with%20mental%20health..."
+        style="align-items: center"
+      >
+        Submit Here...
+      </button>
+    </div>
+  </div>
+</div>
+<div class="main" id="com-story" style="margin-top: 2%">
+  <ul class="cards">
+    <li class="cards_item wow fadeInUp">
+      <div class="card">
+        <div class="card_image">
+          <img class="blog-cd-img" src="img/blogs/blog1-cd.png" alt="Say no" />
+        </div>
+        <div class="card_content">
+          <h2 class="card_title">
+            Learn to say 'NO' when you don't want to say 'YES'
+          </h2>
+          <p class="card_text">
+            One starred email at a time. I remind myself, absently wrapping a
+            forefinger around the coolness of the moon crystal bracelet. A heap
+            of questions weigh down on...
+          </p>
+          <a href="/blog1"><button class="btn card_btn">Read Blog</button></a>
         </div>
       </div>
-    </div>
+    </li>
+    <li class="cards_item wow fadeInUp">
+      <div class="card">
+        <div class="card_image">
+          <img
+            class="blog-cd-img"
+            src="img/blogs/blog2-cd.png"
+            alt="Call out culture"
+          />
+        </div>
+        <div class="card_content">
+          <h2 class="card_title">
+            Social Media's Aggressive Call Out Culture and its impact on Mental
+            Health.
+          </h2>
+          <p class="card_text">
+            The possibly hottest and coolest thing now is social media. It's
+            fun, It's entertaining, it's informative and it's the best
+            timepass...
+          </p>
+          <a href="/blog2"
+            ><button class="btn card_btn" style="margin-top: 1%">
+              Read Blog
+            </button></a
+          >
+        </div>
+      </div>
+    </li>
+    <li class="cards_item wow fadeInUp">
+      <div class="card">
+        <div class="card_image">
+          <img
+            class="blog-cd-img"
+            src="img/blogs/blog3-cd.png"
+            alt="suicide note"
+          />
+        </div>
+        <div class="card_content">
+          <h2 class="card_title">This is not a suicide note</h2>
+          <p class="card_text">
+            So, here I am bed-ridden, clutching my stomach in pain as I am
+            suffering from a bout of food poisoning. I've been to the washroom
+            umpteen times since late last night and now I realize being so
+            greedy and...
+          </p>
+          <a href="/blog3"
+            ><button class="btn card_btn" style="margin-top: 3.9%">
+              Read Blog
+            </button></a
+          >
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
 
-    <!-- Map -->
-    <div class="text-center" id="myMap">
-      <img src="img/map-dummy.png" width="65%" />
+<!-- Map request -->
+<div class="container" style="margin-left: 2%; margin-top: 6%">
+  <div class="row">
+    <h2 style="margin-left: 6%">Near Me</h2>
+    <p style="margin-left: 6%">
+      Find the nearest mental health clinics or therapy centers according to
+      your location for accessible professional help. Simply allow us permission
+      to detect your present device location by clicking the button below.
+    </p>
+    <div onload="GetMap()" class="col-xs-12 text-center">
+      <button class="btn btn-primary col-xs-4 col-md-2" id="request-geo">
+        Request Geolocation
+      </button>
     </div>
+  </div>
+</div>
+
+<!-- Map -->
+<div class="text-center" id="myMap">
+  <img src="img/map-dummy.png" width="65%" />
+</div>
 
     <!-- Footer -->
     <footer>
@@ -357,8 +345,8 @@
           <div class="col-md-3 footer-left">
             <p>
               <img src="img/favicon.png" style="width: 55px" />
-              <span style="color: #1e7c37"
-                >Made with <i class="fas fa-heart"></i> by Zen Bubble</span
+              <span style="color: #fff"
+                >Made with <i class="fas fa-heart"></i> by Mindscape</span
               >
             </p>
           </div>
@@ -379,22 +367,22 @@
       ><i class="fa fa-angle-up" aria-hidden="true" style="font-size: 30px"></i
     ></a>
 
-    <!-- JQuery JS -->
+    <!-- Bootstrap JS -->
     <script
-      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
       crossorigin="anonymous"
     ></script>
 
-    <!-- Bootstrap JS -->
+       <!-- JQuery JS -->
     <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
-      integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
-      integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
       crossorigin="anonymous"
     ></script>
 
@@ -428,3 +416,4 @@
     </script>
   </body>
 </html>
+
