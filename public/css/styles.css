@@ -109,6 +109,10 @@ tr:nth-child(even) {
     background-color: #d2cceb;
 }
 
+.dropdown .btn {
+    background: none !important;
+}
+
 .fa-user-circle:hover,.fa-user-circle:active,.fa-user-circle:focus {
     color: #dd494e !important;
     border: none !important;
