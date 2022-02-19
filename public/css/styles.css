@@ -43,7 +43,7 @@ button:hover,button:focus,button:active {
 
 /* Tables */
 .head-t {
-    background-color: #48a360 !important;
+    background-color: #8278e8 !important;
     color: #fff;
 }
 
@@ -125,7 +125,7 @@ tr:nth-child(even) {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #5DB274;
+    background: #f58286;
     width: 50px;
     height: 50px;
     display: block;
@@ -156,7 +156,7 @@ tr:nth-child(even) {
 }
 
 #return-to-top:hover {
-    background: #298742;
+    background: #ed5d61;
 }
 
 #return-to-top:hover i {
@@ -287,11 +287,11 @@ footer {
   
   .card_content {
     padding: 1rem;
-    background: linear-gradient(to bottom left, #c8f57c 40%, #7de97d 100%);
+    background: linear-gradient(to bottom left, #f5fcbd 40%, #ff9e9ef0 100%);
   }
   
   .card_title {
-    color: #217a39;
+    color: #ed5d61;
     font-size: 1.1rem;
     font-weight: 700;
     letter-spacing: 1px;
