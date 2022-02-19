@@ -307,13 +307,13 @@ app.post("/community", function (req, res) {
           let mailTransporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'chehakagrawal01@gmail.com',
-                pass: '*****'
+                user: 'mind.scape.help@gmail.com',
+                pass: 'MindScape456'
             }
           });
             
           let mailDetails = {
-              from: 'chehakagrawal01@gmail.com',
+              from: 'mind.scape.help@gmail.com',
               to: user.username,
               subject: 'Test mail',
               text: 'Room ID :'+ room,
@@ -364,13 +364,13 @@ app.post("/community", function (req, res) {
           let mailTransporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'chehakagrawal01@gmail.com',
-                pass: '****'
+                user: 'mind.scape.help@gmail.com',
+                pass: 'MindScape456'
             }
           });
             
           let mailDetails = {
-              from: 'chehakagrawal01@gmail.com',
+              from: 'mind.scape.help@gmail.com',
               to: user.username,
               subject: 'Test mail',
               text: 'Room ID :'+ room,
