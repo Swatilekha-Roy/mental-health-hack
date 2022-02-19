@@ -135,6 +135,7 @@ const {
   getRoomUsers,
   uniqueUser,
 } = require("./utils/users");
+const { getMaxListeners } = require("process");
 
 const botName = "Zen Bubble";
 
@@ -293,31 +294,6 @@ app.post("/community", function (req, res) {
    }*/
 
 
-   let mailTransporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'chehakagrawal01@gmail.com',
-        pass: '****'
-    }
-  });
-    
-  let mailDetails = {
-      from: 'chehakagrawal01@gmail.com',
-      to: 'chehakagrawal01@gmail.com',
-      subject: 'Test mail',
-      text: 'Node.js testing mail for GeeksforGeeks'
-  };
-    
-  mailTransporter.sendMail(mailDetails, function(err, data) {
-      if(err) {
-          console.log('Error Occurs');
-      } else {
-          console.log('Email sent successfully');
-      }
-  });
-
-
-
 
 
   if (result < 0) {
@@ -326,6 +302,32 @@ app.post("/community", function (req, res) {
         console.log(err);
       } else {
         if (user != null) {
+
+          let mailTransporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'chehakagrawal01@gmail.com',
+                pass: '******'
+            }
+          });
+            
+          let mailDetails = {
+              from: 'chehakagrawal01@gmail.com',
+              to: user.username,
+              subject: 'Test mail',
+              text: 'Node.js testing mail for GeeksforGeeks',
+              cc:username
+          };
+            
+          mailTransporter.sendMail(mailDetails, function(err, data) {
+              if(err) {
+                  console.log(err);
+              } else {
+                  console.log('Email sent successfully');
+              }
+          });
+        
+
           Match.findOneAndDelete(
             { username: req.user.username },
             function (err, userf) {
@@ -335,6 +337,7 @@ app.post("/community", function (req, res) {
           );
           counter++;
           console.log("Deleted User : ", user);
+
         }
       }
     });
@@ -356,6 +359,31 @@ app.post("/community", function (req, res) {
         console.log(err);
       } else {
         if (user != null) {
+
+          let mailTransporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'chehakagrawal01@gmail.com',
+                pass: '******'
+            }
+          });
+            
+          let mailDetails = {
+              from: 'chehakagrawal01@gmail.com',
+              to: user.username,
+              subject: 'Test mail',
+              text: 'Node.js testing mail for GeeksforGeeks',
+              cc:username
+          };
+            
+          mailTransporter.sendMail(mailDetails, function(err, data) {
+              if(err) {
+                  console.log(err);
+              } else {
+                  console.log('Email sent successfully');
+              }
+          });
+
           Match.findOneAndDelete(
             { username: req.user.username },
             function (err, userf) {
