@@ -449,8 +449,15 @@ app.get("/feedback", (req, res) => {
 });
 
 // Profile page rendering
-app.get("/profile", (req, res) => {
-  res.render("profile");
+app.get("/:username", (req, res) => {
+  var username= req.params.username;
+
+  User.findOne({username:username}, function(err,user){
+    res.render("profile",{
+      user:user
+    });
+    
+  })
 });
 
 // Socket.io
