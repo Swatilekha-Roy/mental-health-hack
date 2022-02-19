@@ -7,6 +7,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
+const nodemailer=require("nodemailer");
 // const http = require('http');
 const ejs = require("ejs");
 var Sentiment = require("sentiment");
@@ -236,22 +237,53 @@ app.post("/community", function (req, res) {
   var username = req.user.username;
   var score = req.user.score;
   var feeling = result;
-  Match.create(
-    {
-      name: name,
-      username: username,
-      score: score,
-      feeling: result,
-    },
-    function (err, newlyCreated) {
-      if (err) {
-        console.log(err);
-      } else;
-      //console.log(newlyCreated);
-    }
-  );
+  
+  Match.findOne({username:username},function(err,person){
+    if (!err) {
+        // If the document doesn't exist
+        if (!person) {
 
-  console.log(result);
+          Match.create(
+            {
+              name: name,
+              username: username,
+              score: score,
+              feeling: result,
+            },
+            function (err, newlyCreated) {
+              if (err) {
+                console.log(err);
+              } else;
+              //console.log(newlyCreated);
+            });
+
+        }else{
+          person.feeling=result;
+          person.save();
+        }
+
+         
+      }else{
+      console.log(err);
+    }
+});
+
+
+  // Match.create(
+  //   {
+  //     name: name,
+  //     username: username,
+  //     score: score,
+  //     feeling: result,
+  //   },
+  //   function (err, newlyCreated) {
+  //     if (err) {
+  //       console.log(err);
+  //     } else;
+  //     //console.log(newlyCreated);
+  //   }
+  // );
+
   /*res.render("community",{result:result});*/
 
   /* if(result<0){
@@ -259,6 +291,35 @@ app.post("/community", function (req, res) {
    }else{
       var query=MatchUser.find({ score: { $lt: 0 } });
    }*/
+
+
+   let mailTransporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'chehakagrawal01@gmail.com',
+        pass: '****'
+    }
+  });
+    
+  let mailDetails = {
+      from: 'chehakagrawal01@gmail.com',
+      to: 'chehakagrawal01@gmail.com',
+      subject: 'Test mail',
+      text: 'Node.js testing mail for GeeksforGeeks'
+  };
+    
+  mailTransporter.sendMail(mailDetails, function(err, data) {
+      if(err) {
+          console.log('Error Occurs');
+      } else {
+          console.log('Email sent successfully');
+      }
+  });
+
+
+
+
+
   if (result < 0) {
     Match.findOneAndDelete({ feeling: { $gte: 0 } }, function (err, user) {
       if (err) {
