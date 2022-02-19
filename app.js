@@ -11,6 +11,7 @@ const nodemailer=require("nodemailer");
 // const http = require('http');
 const ejs = require("ejs");
 var Sentiment = require("sentiment");
+var randomstring = require("randomstring");
 require("./db/conn");
 require("dotenv").config();
 
@@ -294,7 +295,7 @@ app.post("/community", function (req, res) {
    }*/
 
 
-
+   var room= randomstring.generate(7);
 
   if (result < 0) {
     Match.findOneAndDelete({ feeling: { $gte: 0 } }, function (err, user) {
@@ -307,7 +308,7 @@ app.post("/community", function (req, res) {
             service: 'gmail',
             auth: {
                 user: 'chehakagrawal01@gmail.com',
-                pass: '******'
+                pass: '*****'
             }
           });
             
@@ -315,7 +316,7 @@ app.post("/community", function (req, res) {
               from: 'chehakagrawal01@gmail.com',
               to: user.username,
               subject: 'Test mail',
-              text: 'Node.js testing mail for GeeksforGeeks',
+              text: 'Room ID :'+ room,
               cc:username
           };
             
@@ -364,7 +365,7 @@ app.post("/community", function (req, res) {
             service: 'gmail',
             auth: {
                 user: 'chehakagrawal01@gmail.com',
-                pass: '******'
+                pass: '****'
             }
           });
             
@@ -372,7 +373,7 @@ app.post("/community", function (req, res) {
               from: 'chehakagrawal01@gmail.com',
               to: user.username,
               subject: 'Test mail',
-              text: 'Node.js testing mail for GeeksforGeeks',
+              text: 'Room ID :'+ room,
               cc:username
           };
             
