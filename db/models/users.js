@@ -13,6 +13,15 @@ var userSchema=new mongoose.Schema({
         //required:true
     },
     score:{
+        type:Number       //goal slayer
+    },
+    med_sc:{
+        type:Number
+    },
+    kindness_sc:{       // just counter
+        type:Number
+    },
+    share_sc:{         //just counter
         type:Number
     }
 });
