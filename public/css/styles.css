@@ -328,3 +328,12 @@ footer {
 html { 
     overflow-x: hidden;
 }
+
+
+    /* Maps */
+      #myMap {
+        width: 82vw;
+        height: 90vh;
+        margin-left: 2%;
+        margin-top: 5%;
+      }

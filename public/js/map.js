@@ -1,126 +1,253 @@
-// Find present device location
-var lat,lon;
+// // Find present device location
+// var lat, lon;
 
+// // Request Location
+// document.getElementById("request-geo").addEventListener("click", requestGeo);
 
-// Request Location
-document.getElementById("request-geo").addEventListener("click", requestGeo);
+// function requestGeo() {
+//   if ("geolocation" in navigator) {
+//     navigator.geolocation.getCurrentPosition(geoSuccess, geoFailure);
+//   } else {
+//     console.log("No support");
+//   }
+// }
+
+// function geoSuccess(pos) {
+//   var crd = pos.coords;
+//   lat = crd.latitude;
+//   lon = crd.longitude;
+
+//   GetMap();
+// }
+
+// function geoFailure(error) {
+//   console.log(error);
+// }
+
+// // Find mental health clinics on map
+// function GetMap() {
+//   // Instantiate a map object
+//   var map = new atlas.Map("myMap", {
+//     view: "Auto",
+//     showLogo: false,
+//     //Add authentication details for connecting to Azure Maps.
+//     authOptions: {
+//       authType: "subscriptionKey",
+//       subscriptionKey: "BWqFiXxZP9rfe-C-Bp-wOskE-9jrDKpTWzI-Rmg5W7Y",
+//     },
+//   });
+//   console.log("Wait1");
+//   //Wait until the map resources are ready.
+//   map.events.add("ready", function () {
+//     //Create a data source and add it to the map.
+//     datasource = new atlas.source.DataSource();
+//     map.sources.add(datasource);
+
+//     //Add a layer for rendering point data.
+//     var resultLayer = new atlas.layer.SymbolLayer(datasource, null, {
+//       iconOptions: {
+//         image: "pin-round-darkblue",
+//         anchor: "center",
+//         allowOverlap: true,
+//       },
+//       textOptions: {
+//         anchor: "top",
+//       },
+//     });
+
+//     map.layers.add(resultLayer);
+//     console.log("Wait2");
+
+//     //Use MapControlCredential to share authentication between a map control and the service module
+//     var pipeline = atlas.service.MapsURL.newPipeline(
+//       new atlas.service.MapControlCredential(map)
+//     );
+
+//     // Construct the SearchURL object
+//     var searchURL = new atlas.service.SearchURL(pipeline);
+
+//     var query = "psychiatrist";
+//     var radius = 9000;
+
+//     searchURL
+//       .searchPOI(atlas.service.Aborter.timeout(5000), query, {
+//         limit: 10,
+//         lat: lat,
+//         lon: lon,
+//         radius: radius,
+//         view: "Auto",
+//       })
+//       .then((results) => {
+//         // Extract GeoJSON feature collection from the response and add it to the datasource
+//         var data = results.geojson.getFeatures();
+//         datasource.add(data);
+
+//         // set camera to bounds to show the results
+//         map.setCamera({
+//           // bounds: data.bbox,
+//           bounds: atlas.data.BoundingBox.fromData(data),
+//           zoom: 10,
+//           padding: 15,
+//         });
+//         console.log("Wait3");
+//       });
+
+//     //Create a popup but leave it closed so we can update it and display it later.
+//     popup = new atlas.Popup();
+
+//     //Add a mouse over event to the result layer and display a popup when this event fires.
+//     map.events.add("mouseover", resultLayer, showPopup);
+
+//     function showPopup(e) {
+//       //Get the properties and coordinates of the first shape that the event occurred on.
+//       var p = e.shapes[0].getProperties();
+//       var position = e.shapes[0].getCoordinates();
+
+//       //Create HTML from properties of the selected result.
+//       var html = [
+//         '<div style="padding:5px"><div><b>',
+//         p.poi.name,
+//         "</b></div><div>",
+//         p.address.freeformAddress,
+//         "</div><div>",
+//         position[1],
+//         ", ",
+//         position[0],
+//         "</div></div>",
+//       ];
+
+//       //Update the content and position of the popup.
+//       popup.setPopupOptions({
+//         content: html.join(""),
+//         position: position,
+//       });
+
+//       //Open the popup.
+//       popup.open(map);
+//     }
+//   });
+// }
+
+//Primary Key: plI3_b7-V-mXyxeh6xBTjTUNPxEaym8GTdfH1PliJrw
+//Find present device location
+var lat, lon;
 
 function requestGeo() {
-  if ("geolocation" in navigator) 
-  {
+  if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(geoSuccess, geoFailure);
-  } 
-  else
-  {
+  } else {
     console.log("No support");
   }
 }
 
 function geoSuccess(pos) {
-    var crd = pos.coords;
-    lat = crd.latitude;
-    lon = crd.longitude;
-    
-    GetMap();
-  }
+  var crd = pos.coords;
+  lat = crd.latitude;
+  lon = crd.longitude;
+  console.log(lat + " " + lon);
+  GetMap(lat, lon);
+}
 
-function geoFailure(error) 
-{
+function geoFailure(error) {
   console.log(error);
 }
 
-  // Find mental health clinics on map
-  function GetMap() {          
-    // Instantiate a map object
-    var map = new atlas.Map('myMap', {
-        view: 'Auto',
-        showLogo: false,
-        //Add authentication details for connecting to Azure Maps.
-        authOptions: {            
-            authType: 'subscriptionKey',
-            subscriptionKey: 'BWqFiXxZP9rfe-C-Bp-wOskE-9jrDKpTWzI-Rmg5W7Y'
-        }
+function GetMap(latitude, longitude) {
+  //Add Map Control JavaScript code here.
+  //Instantiate a map object
+  var map = new atlas.Map("myMap", {
+    //Add your Azure Maps subscription key to the map SDK. Get an Azure Maps key at https://azure.com/maps
+    authOptions: {
+      authType: "subscriptionKey",
+      subscriptionKey: "plI3_b7-V-mXyxeh6xBTjTUNPxEaym8GTdfH1PliJrw",
+    },
+  });
+
+  //Wait until the map resources are ready.
+  map.events.add("ready", function () {
+    //Create a data source and add it to the map.
+    datasource = new atlas.source.DataSource();
+    map.sources.add(datasource);
+
+    //Add a layer for rendering point data.
+    var resultLayer = new atlas.layer.SymbolLayer(datasource, null, {
+      iconOptions: {
+        image: "pin-round-darkblue",
+        anchor: "center",
+        allowOverlap: true,
+      },
+      textOptions: {
+        anchor: "top",
+      },
     });
-    console.log("Wait1");
-    //Wait until the map resources are ready.
-    map.events.add('ready', function () {
 
-        //Create a data source and add it to the map.
-        datasource = new atlas.source.DataSource();
-        map.sources.add(datasource);
+    map.layers.add(resultLayer);
 
-        //Add a layer for rendering point data.
-        var resultLayer = new atlas.layer.SymbolLayer(datasource, null, {
-            iconOptions: {
-                image: 'pin-round-darkblue',
-                anchor: 'center',
-                allowOverlap: true
-            },
-            textOptions: {
-                anchor: "top"
-            }
+    // Use SubscriptionKeyCredential with a subscription key
+    var subscriptionKeyCredential = new atlas.service.SubscriptionKeyCredential(
+      atlas.getSubscriptionKey()
+    );
+
+    // Use subscriptionKeyCredential to create a pipeline
+    var pipeline = atlas.service.MapsURL.newPipeline(subscriptionKeyCredential);
+
+    // Construct the SearchURL object
+    var searchURL = new atlas.service.SearchURL(pipeline);
+
+    var query = "pharmacy";
+    var radius = 9000;
+    var lat = latitude;
+    var lon = longitude;
+
+    console.log(lat + " " + lon);
+
+    searchURL
+      .searchPOI(atlas.service.Aborter.timeout(10000), query, {
+        limit: 10,
+        lat: lat,
+        lon: lon,
+        radius: radius,
+      })
+      .then((results) => {
+        // Extract GeoJSON feature collection from the response and add it to the datasource
+        var data = results.geojson.getFeatures();
+        datasource.add(data);
+
+        // set camera to bounds to show the results
+        map.setCamera({
+          bounds: data.bbox,
+          zoom: 10,
         });
+      });
 
-        map.layers.add(resultLayer);
-        console.log("Wait2"); 
+    // Create a popup but leave it closed so we can update it and display it later.
+    popup = new atlas.Popup();
 
-        //Use MapControlCredential to share authentication between a map control and the service module
-        var pipeline = atlas.service.MapsURL.newPipeline(new atlas.service.MapControlCredential(map));
+    //Add a mouse over event to the result layer and display a popup when this event fires.
+    map.events.add("mouseover", resultLayer, showPopup);
 
-        // Construct the SearchURL object
-        var searchURL = new atlas.service.SearchURL(pipeline);
+    function showPopup(e) {
+      //Get the properties and coordinates of the first shape that the event occurred on.
 
-        var query = 'psychiatrist';
-        var radius = 9000;
-        
-        searchURL.searchPOI(atlas.service.Aborter.timeout(5000), query, {
-            limit: 10,
-            lat: lat,
-            lon: lon,
-            radius: radius,
-            view: 'Auto'
-        }).then((results) => {
+      var p = e.shapes[0].getProperties();
+      var position = e.shapes[0].getCoordinates();
 
-            // Extract GeoJSON feature collection from the response and add it to the datasource
-            var data = results.geojson.getFeatures();
-            datasource.add(data);
+      //Create HTML from properties of the selected result.
+      var html = `
+      <div style="padding:5px">
+        <div><b>${p.poi.name}</b></div>
+        <div>${p.address.freeformAddress}</div>
+        <div>${position[1]}, ${position[0]}</div>
+      </div>`;
 
-            // set camera to bounds to show the results
-            map.setCamera({
-                // bounds: data.bbox,
-                bounds: atlas.data.BoundingBox.fromData(data),
-                zoom: 10,
-                padding: 15
-            });
-            console.log("Wait3");
-          
-        });
+      //Update the content and position of the popup.
+      popup.setPopupOptions({
+        content: html,
+        position: position,
+      });
 
-        //Create a popup but leave it closed so we can update it and display it later.
-        popup = new atlas.Popup();
-
-        //Add a mouse over event to the result layer and display a popup when this event fires.
-        map.events.add('mouseover', resultLayer,showPopup);
-        
-
-        function showPopup(e) {
-            //Get the properties and coordinates of the first shape that the event occurred on.
-            var p = e.shapes[0].getProperties();
-            var position = e.shapes[0].getCoordinates();
-
-            //Create HTML from properties of the selected result.
-            var html = ['<div style="padding:5px"><div><b>', p.poi.name,
-                '</b></div><div>', p.address.freeformAddress,
-                '</div><div>', position[1], ', ', position[0], '</div></div>'];
-
-            //Update the content and position of the popup.
-            popup.setPopupOptions({
-                content: html.join(''),
-                position: position
-            });
-
-            //Open the popup.
-            popup.open(map);
-        }
-    });
+      //Open the popup.
+      popup.open(map);
+    }
+  });
 }

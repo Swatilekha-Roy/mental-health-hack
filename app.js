@@ -7,7 +7,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 const bcrypt = require("bcryptjs");
-const nodemailer=require("nodemailer");
+const nodemailer = require("nodemailer");
 // const http = require('http');
 const ejs = require("ejs");
 var Sentiment = require("sentiment");
@@ -208,6 +208,11 @@ app.get("/room", (req, res) => {
   res.render("room");
 });
 
+// Resources Page Rendering
+app.get("/resources", function (req, res) {
+  res.render("resources");
+});
+
 // Leaderboard page rendering
 app.get("/leaderboard", function (req, res) {
   const result = User.find().sort({ score: -1 });
@@ -239,37 +244,33 @@ app.post("/community", function (req, res) {
   var username = req.user.username;
   var score = req.user.score;
   var feeling = result;
-  
-  Match.findOne({username:username},function(err,person){
+
+  Match.findOne({ username: username }, function (err, person) {
     if (!err) {
-        // If the document doesn't exist
-        if (!person) {
-
-          Match.create(
-            {
-              name: name,
-              username: username,
-              score: score,
-              feeling: result,
-            },
-            function (err, newlyCreated) {
-              if (err) {
-                console.log(err);
-              } else;
-              //console.log(newlyCreated);
-            });
-
-        }else{
-          person.feeling=result;
-          person.save();
-        }
-
-         
-      }else{
+      // If the document doesn't exist
+      if (!person) {
+        Match.create(
+          {
+            name: name,
+            username: username,
+            score: score,
+            feeling: result,
+          },
+          function (err, newlyCreated) {
+            if (err) {
+              console.log(err);
+            } else;
+            //console.log(newlyCreated);
+          }
+        );
+      } else {
+        person.feeling = result;
+        person.save();
+      }
+    } else {
       console.log(err);
     }
-});
-
+  });
 
   // Match.create(
   //   {
@@ -294,8 +295,7 @@ app.post("/community", function (req, res) {
       var query=MatchUser.find({ score: { $lt: 0 } });
    }*/
 
-
-   var room= randomstring.generate(7);
+  var room = randomstring.generate(7);
 
   if (result < 0) {
     Match.findOneAndDelete({ feeling: { $gte: 0 } }, function (err, user) {
@@ -303,31 +303,29 @@ app.post("/community", function (req, res) {
         console.log(err);
       } else {
         if (user != null) {
-
           let mailTransporter = nodemailer.createTransport({
-            service: 'gmail',
+            service: "gmail",
             auth: {
-                user: 'mind.scape.help@gmail.com',
-                pass: 'MindScape456'
+              user: "mind.scape.help@gmail.com",
+              pass: "MindScape456",
+            },
+          });
+
+          let mailDetails = {
+            from: "mind.scape.help@gmail.com",
+            to: user.username,
+            subject: "Test mail",
+            text: "Room ID :" + room,
+            cc: username,
+          };
+
+          mailTransporter.sendMail(mailDetails, function (err, data) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Email sent successfully");
             }
           });
-            
-          let mailDetails = {
-              from: 'mind.scape.help@gmail.com',
-              to: user.username,
-              subject: 'Test mail',
-              text: 'Room ID :'+ room,
-              cc:username
-          };
-            
-          mailTransporter.sendMail(mailDetails, function(err, data) {
-              if(err) {
-                  console.log(err);
-              } else {
-                  console.log('Email sent successfully');
-              }
-          });
-        
 
           Match.findOneAndDelete(
             { username: req.user.username },
@@ -338,7 +336,6 @@ app.post("/community", function (req, res) {
           );
           counter++;
           console.log("Deleted User : ", user);
-
         }
       }
     });
@@ -360,29 +357,28 @@ app.post("/community", function (req, res) {
         console.log(err);
       } else {
         if (user != null) {
-
           let mailTransporter = nodemailer.createTransport({
-            service: 'gmail',
+            service: "gmail",
             auth: {
-                user: 'mind.scape.help@gmail.com',
-                pass: 'MindScape456'
-            }
+              user: "mind.scape.help@gmail.com",
+              pass: "MindScape456",
+            },
           });
-            
+
           let mailDetails = {
-              from: 'mind.scape.help@gmail.com',
-              to: user.username,
-              subject: 'Test mail',
-              text: 'Room ID :'+ room,
-              cc:username
+            from: "mind.scape.help@gmail.com",
+            to: user.username,
+            subject: "Test mail",
+            text: "Room ID :" + room,
+            cc: username,
           };
-            
-          mailTransporter.sendMail(mailDetails, function(err, data) {
-              if(err) {
-                  console.log(err);
-              } else {
-                  console.log('Email sent successfully');
-              }
+
+          mailTransporter.sendMail(mailDetails, function (err, data) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log("Email sent successfully");
+            }
           });
 
           Match.findOneAndDelete(
